@@ -49,6 +49,10 @@ export default defineConfig({
 
                 'resources/js/emerging-tech/pitch-monitor-controller.js',
                 'resources/js/emerging-tech/pitch-monitor-processor.js',
+                'resources/js/student/student-dashboard-stat-cards.js',
+                'resources/js/student/student-dashboard-upcoming-filter.js',
+                'resources/js/student/schedule-filter-cards.js',
+                'resources/js/student/enrollment-filter.js',
             ],
             refresh: true,
         }),
