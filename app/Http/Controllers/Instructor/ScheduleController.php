@@ -91,6 +91,8 @@ class ScheduleController extends Controller
                 'e.total_sessions',
                 'e.completed_sessions',
                 'e.remaining_sessions',
+                'e.preferred_lesson_days',
+                'e.preferred_lesson_time',
                 'e.status as enrollment_status',
                 'ins.instrument_name',
                 DB::raw("TRIM(st.first_name || ' ' || st.last_name) as student_name"),
@@ -129,6 +131,8 @@ class ScheduleController extends Controller
                 'ins.instrument_name',
                 'e.enrollment_id',
                 'e.remaining_sessions',
+                'e.preferred_lesson_days',
+                'e.preferred_lesson_time',
             ])
             ->orderBy('st.last_name')
             ->orderBy('st.first_name')
@@ -199,6 +203,8 @@ class ScheduleController extends Controller
                 DB::raw("TRIM(st.first_name || ' ' || st.last_name) as student_name"),
                 'ins.instrument_name',
                 'e.remaining_sessions',
+                'e.preferred_lesson_days',
+                'e.preferred_lesson_time',
             ])
             ->first();
 
