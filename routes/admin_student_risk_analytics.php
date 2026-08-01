@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Admin Student Risk Analytics Routes
+| routes/admin_student_risk_analytics.php
 |--------------------------------------------------------------------------
 |
 | Kept in a separate route file to avoid editing the existing large web.php
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
