@@ -407,4 +407,5 @@
 @endpush
 
 @push('scripts')
+    @vite('resources/js/student/enrollment-filter.js')
 @endpush

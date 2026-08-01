@@ -80,7 +80,7 @@
                             <div class="grid gap-4 sm:grid-cols-3">
                                 <div class="rounded-2xl bg-[#F5F7F4] p-4">
                                     <p class="text-xs font-bold uppercase tracking-wide text-[#768A96]">Instrument</p>
-                                    <p class="mt-1 text-sm font-bold text-[#223030]">{{ $currentEnrollment->instrument->instrument_name ?? '—' }}</p>
+                                    <p class="mt-1 text-sm font-bold text-[#223030]">{{ $currentEnrollment->instrument->instrument_name ?? 'â€”' }}</p>
                                 </div>
                                 <div class="rounded-2xl bg-[#F5F7F4] p-4">
                                     <p class="text-xs font-bold uppercase tracking-wide text-[#768A96]">Instructor</p>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="rounded-2xl bg-[#F5F7F4] p-4">
                                     <p class="text-xs font-bold uppercase tracking-wide text-[#768A96]">Start date</p>
-                                    <p class="mt-1 text-sm font-bold text-[#223030]">{{ $currentEnrollment->start_date?->format('M d, Y') ?? '—' }}</p>
+                                    <p class="mt-1 text-sm font-bold text-[#223030]">{{ $currentEnrollment->start_date?->format('M d, Y') ?? 'â€”' }}</p>
                                 </div>
                             </div>
 
@@ -102,7 +102,7 @@
                                     <div class="h-3 rounded-full bg-[#44576D] transition-all duration-500" style="width: {{ $progressPercentage }}%"></div>
                                 </div>
                                 <p class="text-center text-xs font-semibold text-[#768A96]">
-                                    {{ $currentEnrollment->completed_sessions }} completed • {{ $currentEnrollment->remaining_sessions }} remaining
+                                    {{ $currentEnrollment->completed_sessions }} completed - {{ $currentEnrollment->remaining_sessions }} remaining
                                 </p>
                             </div>
 
@@ -111,7 +111,7 @@
                                 <div class="rounded-2xl border border-[#D8DDD8] bg-[#FCFCFA] p-4">
                                     <p class="text-sm font-bold text-[#223030]">Schedule confirmation pending</p>
                                     <p class="mt-1 text-sm text-[#44576D]">
-                                        Preferred days: {{ $currentEnrollment->preferred_lesson_days ?? 'Not set' }} • Preferred time: {{ $currentEnrollment->preferred_lesson_time ?? 'Not set' }}
+                                        Preferred days: {{ $currentEnrollment->preferred_lesson_days ?? 'Not set' }} | Preferred time: {{ $currentEnrollment->preferred_lesson_time ?? 'Not set' }}
                                     </p>
                                 </div>
                             @endif
@@ -135,7 +135,7 @@
                         <p class="text-xs font-bold uppercase tracking-wide text-[#D8DDD8]">Next lesson</p>
                         <h2 class="mt-2 text-xl font-bold" style="font-family: 'Sora', sans-serif;">{{ $nextLesson->instrument->instrument_name ?? 'Lesson' }}</h2>
                         <p class="mt-4 text-sm font-semibold">{{ $nextLesson->schedule_date->format('l, F d') }}</p>
-                        <p class="mt-1 text-sm text-[#D8D9DA]">{{ $nextLesson->start_time->format('g:i A') }} – {{ $nextLesson->end_time->format('g:i A') }}</p>
+                        <p class="mt-1 text-sm text-[#D8D9DA]">{{ $nextLesson->start_time->format('g:i A') }} â€“ {{ $nextLesson->end_time->format('g:i A') }}</p>
                         <div class="mt-5 space-y-2 rounded-2xl bg-white/10 p-4 text-sm">
                             <p>Instructor: <span class="font-bold">{{ $nextLesson->instructor->full_name ?? 'TBA' }}</span></p>
                             <p>Room: <span class="font-bold">{{ $nextLesson->room_number ?? 'TBA' }}</span></p>
@@ -200,4 +200,11 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@500;600;700;800&display=swap');
 </style>
+@endpush
+
+@push('scripts')
+@vite([
+        'resources/js/student/student-dashboard-stat-cards.js',
+        'resources/js/student/student-dashboard-upcoming-filter.js',
+    ])
 @endpush

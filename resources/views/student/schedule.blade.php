@@ -151,4 +151,5 @@
 @endpush
 
 @push('scripts')
+    @vite('resources/js/student/schedule-filter-cards.js')
 @endpush
