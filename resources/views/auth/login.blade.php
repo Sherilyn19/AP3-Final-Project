@@ -167,12 +167,9 @@
 
                 {{-- Forgot Password Link --}}
                 <div class="mt-3 text-center">
-                    <a href="#" onclick="openForgotPasswordModal(event)" class="text-xs text-[#61677A] hover:text-[#272829] font-medium transition-colors inline-flex items-center">
-                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Forgot your password?
-                    </a>
+                    <span class="text-[10px] leading-tight text-[#61677A]">
+                        Forgot your password? Please contact the administrator.
+                    </span>
                 </div>
 
             </div>

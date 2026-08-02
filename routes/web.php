@@ -77,7 +77,7 @@ Route::middleware('guest')->group(function () {
 
     // Password reset route
 
-    Route::post('/forgot-password', [LoginController::class, 'resetPassword']);
+    // Route::post('/forgot-password', [LoginController::class, 'resetPassword']);
 
     // Role Selection Page
 
