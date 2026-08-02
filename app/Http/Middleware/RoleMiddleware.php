@@ -28,10 +28,23 @@ class RoleMiddleware
 
         // Check roles based on your tables
         foreach ($roles as $role) {
-            if ($role === 'instructor' && DB::table('instructor')->where('user_id', $userId)->exists()) {
+            if (
+                $role === 'instructor'
+                && DB::table('instructor')
+                    ->where('user_id', $userId)
+                    ->where('is_active', true)
+                    ->exists()
+            ) {
                 return $next($request);
             }
-            if ($role === 'student' && DB::table('student')->where('user_id', $userId)->exists()) {
+
+            if (
+                $role === 'student'
+                && DB::table('student')
+                    ->where('user_id', $userId)
+                    ->where('is_active', true)
+                    ->exists()
+            ) {
                 return $next($request);
             }
         }

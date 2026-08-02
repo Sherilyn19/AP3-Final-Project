@@ -99,6 +99,12 @@ class LoginController extends Controller
             ])->withInput($request->only('user_email'));
         }
 
+        if (!$this->isRoleActive($user, $actualRole)) {
+            return back()->withErrors([
+                'user_email' => 'Your account is inactive. Please contact the administrator.',
+            ])->withInput($request->only('user_email'));
+        }
+
         // === STEP 6: Update last login timestamp ===
         $user->last_login = now();
         $user->save();
@@ -109,6 +115,27 @@ class LoginController extends Controller
 
         // === STEP 8: Redirect to role-specific dashboard ===
         return $this->redirectToDashboard($actualRole);
+    }
+
+    /**
+     * Determine whether the user's role profile is active.
+     */
+    private function isRoleActive(UserAccount $user, string $role): bool
+    {
+        $table = match ($role) {
+            'student' => 'student',
+            'instructor' => 'instructor',
+            default => null,
+        };
+
+        if ($table === null) {
+            return false;
+        }
+
+        return DB::table($table)
+            ->where('user_id', $user->user_id)
+            ->where('is_active', true)
+            ->exists();
     }
 
     /**
