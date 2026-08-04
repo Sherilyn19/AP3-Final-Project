@@ -35,7 +35,6 @@ class UserAccount extends Authenticatable
     protected $fillable = [
         'user_email',
         'user_password',
-        'is_super_admin',
         'last_login', // Added so we can mass-assign it
     ];
 

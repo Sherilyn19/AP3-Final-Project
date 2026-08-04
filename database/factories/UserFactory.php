@@ -32,7 +32,7 @@ class UserFactory extends Factory
         return [
             'user_email' => fake()->unique()->safeEmail,
             'user_password' => static::$password ??= Hash::make('password'),
-            'is_super_admin' => fake()->boolean(10),
+            'is_super_admin' => false,
             'last_login' => null, // Changed: null for new users
             // REMOVED: remember_token - not in your database schema
         ];
