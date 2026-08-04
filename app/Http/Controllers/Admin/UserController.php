@@ -361,6 +361,13 @@ class UserController extends Controller
             ], 404);
         }
 
+        if ((bool) $user->is_super_admin) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Super Admin password cannot be reset from User Management.',
+            ], 403);
+        }
+
         $newPassword = Str::password(12, true, true, true, false);
 
         DB::table('user_account')
