@@ -8,7 +8,6 @@ use App\Models\UserAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -194,42 +193,5 @@ class LoginController extends Controller
 
         return redirect()->route('login')
             ->with('success', 'You have been logged out successfully.');
-    }
-
-    /**
-     * Reset password and generate new one
-     */
-    public function resetPassword(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email'
-        ]);
-
-        // Find user by email
-        $user = DB::table('user_account')->where('user_email', $request->email)->first();
-
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Email not found in our system'
-            ], 404);
-        }
-
-        // Generate new random password
-        $newPassword = Str::random(12) . rand(10, 99);
-
-        // Update password in database
-        DB::table('user_account')
-            ->where('user_id', $user->user_id)
-            ->update([
-                'user_password' => Hash::make($newPassword),
-                'updated_at' => now()
-            ]);
-
-        return response()->json([
-            'success' => true,
-            'email' => $request->email,
-            'password' => $newPassword
-        ]);
     }
 }

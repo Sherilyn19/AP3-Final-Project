@@ -77,8 +77,9 @@ Route::middleware('guest')->group(function () {
         ->middleware('throttle:login')
         ->name('login.process');
 
-    // Password reset route
-
+    // Public password reset is intentionally disabled.
+    // The old handler was removed; users must contact the administrator.
+    // Do not uncomment this route without implementing a secure token-based reset.
     // Route::post('/forgot-password', [LoginController::class, 'resetPassword']);
 
     // Role Selection Page
