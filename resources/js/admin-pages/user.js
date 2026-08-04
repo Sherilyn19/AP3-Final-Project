@@ -320,7 +320,7 @@ window.resetPassword = async function(userId) {
                     </div>
                     <p class="text-sm text-gray-700 mb-2">Copy this password and share it with the user:</p>
                     <div class="flex items-center gap-2 mb-2">
-                        <input type="text" id="generated-password" value="${data.password}" readonly 
+                        <input type="text" id="generated-password" readonly
                             class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-50 font-mono text-lg font-bold text-center select-all">
                         <button onclick="copyPassword()" class="bg-secondary-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary-blue-dark transition-all">
                             Copy
@@ -332,6 +332,18 @@ window.resetPassword = async function(userId) {
                     </button>
                 </div>
             `;
+
+            // Assign the generated password through the DOM property so special
+            // characters are not interpreted as part of the modal HTML.
+            const passwordInput = modal.querySelector('#generated-password');
+
+            if (!passwordInput) {
+                throw new Error('Generated password field is unavailable.');
+            }
+
+            passwordInput.value = data.password;
+
+            // Show the completed password-reset modal.
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             
