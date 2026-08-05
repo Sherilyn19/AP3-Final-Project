@@ -1,11 +1,10 @@
 <?php
+
 // app/Http/Controllers/Instructor/InstructorController.php
 
 namespace App\Http\Controllers\Instructor;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
 {
@@ -40,19 +39,5 @@ class InstructorController extends Controller
     public function mySchedule()
     {
         return redirect()->route('instructor.schedule.index');
-    }
-
-    /**
-     * Optional instructor logout helper.
-     * The main logout route remains the global authenticated logout route.
-     */
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect()->route('login')->with('success', 'You have been logged out.');
     }
 }
