@@ -318,8 +318,9 @@ class RegistrationController extends Controller
             // Clear registration session data
             session()->forget(['registration_data', 'registration_role']);
 
-            // Auto-login the user
+            // Auto-login the user and regenerate the session ID.
             Auth::login($user);
+            $request->session()->regenerate();
 
             // Redirect to appropriate dashboard
             $redirect = redirect()->route($dashboardRoute)
