@@ -32,19 +32,17 @@ class LoginController extends Controller
     }
 
     /**
-     * Process login attempt
-     * 
+     * Authenticate a user and redirect them to the appropriate dashboard.
+     *
      * This method:
-     * 1. Validates the login credentials
-     * 2. Checks if user exists in user_account table
-     * 3. Handles super admin separately
-     * 4. Verifies password
-     * 5. Verifies the selected role matches the user's actual role in the database
-     * 6. Updates last login
-     * 7. Logs in the user and redirects to appropriate dashboard
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * 1. Validates the submitted credentials.
+     * 2. Finds the account using its email address.
+     * 3. Authenticates a Super Admin when applicable.
+     * 4. Verifies the password for regular users.
+     * 5. Determines whether the account belongs to a student or instructor.
+     * 6. Confirms that the related role profile is active.
+     * 7. Updates the last-login timestamp.
+     * 8. Regenerates the session and redirects to the correct dashboard.
      */
     public function login(Request $request)
     {
@@ -74,7 +72,7 @@ class LoginController extends Controller
                 $user->save();
                 Auth::login($user);
                 $request->session()->regenerate();
-                return redirect()->route('admin.dashboard') // Change to your actual admin route
+                return redirect()->route('admin.dashboard')
                     ->with('success', 'Welcome back, Administrator!');
             }
             return back()->withErrors([
@@ -138,12 +136,10 @@ class LoginController extends Controller
     }
 
     /**
-     * Determine user's role by checking which role table contains their user_id
-     * 
-     * Checks in order: student → instructor → sales_staff → all_around_staff
-     * 
-     * @param  \App\Models\UserAccount  $user
-     * @return string|null  Role slug or null if not found
+     * Determine the user's role from the related role profile.
+     *
+     * Student profiles are checked before instructor profiles.
+     * Returns null when the account has no supported role profile.
      */
     private function getUserRole(UserAccount $user)
     {

@@ -21,12 +21,12 @@ class RoleMiddleware
 
         $userId = $user->user_id;
 
-        // Super admin shortcut (optional)
+        // Allow Super Admin accounts to access routes requiring the admin role.
         if (in_array('admin', $roles, true) && $user->is_super_admin) {
             return $next($request);
         }
 
-        // Check roles based on your tables
+        // Allow access when the account has an active matching role profile.
         foreach ($roles as $role) {
             if (
                 $role === 'instructor'
