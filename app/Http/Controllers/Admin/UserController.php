@@ -245,9 +245,21 @@ class UserController extends Controller
     /**
      * Get user details for modal view.
      */
+
+    // This is necessary because show() currently returns the complete query-builder result as JSON. 
+    // Since query-builder objects do not apply a model’s $hidden fields, selecting the complete row may expose user_password.
+    
     public function show($id)
     {
         $user = DB::table('user_account')
+            ->select([
+                'user_id',
+                'user_email',
+                'last_login',
+                'created_at',
+                'updated_at',
+                'is_super_admin',
+            ])
             ->where('user_id', $id)
             ->first();
 
